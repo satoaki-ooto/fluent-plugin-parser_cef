@@ -399,10 +399,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_device_version" => "10.1.8",
           "cef_device_event_class_id" => "TRAFFIC",
           "cef_name" => "end",
-          "cef_severity" => "0",
-          }
-        ]
-      }
+          "cef_severity" => "0",}]}
     end
     context "syslog message is FW traffic Log for Palo Alto FW" do
       let (:config) {%[
@@ -433,10 +430,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_severity" => "0",
           "deviceExternalId" => "000000000000001",
           "PanOSPacketsReceived" => "0",
-          "PanOSPacketsSent" => "1",
-          }
-        ]
-      }
+          "PanOSPacketsSent" => "1",}]}
     end
   end
 end
