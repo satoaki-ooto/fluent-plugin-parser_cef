@@ -14,7 +14,7 @@ module Fluent
       config_param :syslog_timestamp_format, :string, :default => '\w{3}\s+\d{1,2}\s\d{2}:\d{2}:\d{2}'
       config_param :cef_version, :integer, :default => 0
       config_param :parse_strict_mode, :bool, :default => true
-      config_param :cef_keyfilename, :string, :default => 'config/cef_version_0_keys.yaml'
+      config_param :cef_keyfilename, :string, :default => 'config/cef_version_0_keys*.yaml'
       config_param :output_raw_field, :bool, :default => false
 
       def configure(conf)
