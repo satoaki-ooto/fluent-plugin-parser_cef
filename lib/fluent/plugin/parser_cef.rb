@@ -97,7 +97,7 @@ module Fluent
               (?<syslog_tag>\S*)\s*
             /x
           cef_header = /
-            CEF:(?<cef_version>#{@cef_version})\|
+            CEF:(\s?)(?<cef_version>#{@cef_version})\|
             (?<cef_device_vendor>[^|]*)\|
             (?<cef_device_product>[^|]*)\|
             (?<cef_device_version>[^|]*)\|
