@@ -190,7 +190,8 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_device_version" => "Version",
           "cef_device_event_class_id" => "ID",
           "cef_name" => "Name",
-          "cef_severity" => "Severity" }]}
+          "cef_severity" => "Severity",
+          "foo" => "bar" }]}
     end
     context "timestamp is rfc3339, UTC+3" do
       let (:config) {%[
@@ -218,7 +219,8 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_device_version" => "Version",
           "cef_device_event_class_id" => "ID",
           "cef_name" => "Name",
-          "cef_severity" => "Severity" }]}
+          "cef_severity" => "Severity",
+          "foo" => "bar" }]}
     end
     context "timestamp is rfc3339, UTC+0" do
       let (:config) {%[
@@ -246,7 +248,8 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_device_version" => "Version",
           "cef_device_event_class_id" => "ID",
           "cef_name" => "Name",
-          "cef_severity" => "Severity" }]}
+          "cef_severity" => "Severity",
+          "foo" => "bar" }]}
     end
     context "utc offset set to +04:00" do
       let (:config) {%[
@@ -373,35 +376,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "dpt" => "80",
           "msg" => "\xe3\x2e\x2e\x2e".scrub('?') }]}
     end
-    context "syslog message is BASIC Log for Palo Alto FW" do
-      let (:config) {%[
-        log_utc_offset  +09:00
-      ]}
-      let (:text) { "Jan 1 00:00:00 Paloalto - CEF:0|Palo Alto Networks|PAN-OS|10.1.8|TRAFFIC|end|0|" }
-      subject do
-        allow(Fluent::Engine).to receive(:now).and_return(Fluent::EventTime.now)
-        @timestamp = Time.parse("Jan 1 00:00:00 +09:00").to_i
-        @test_driver = create_driver(config)
-        parsed = nil
-        @test_driver.instance.parse(text) do |time, record|
-          parsed = [time, record]
-        end
-        parsed
-      end
-      it { is_expected.to eq [
-        @timestamp, {
-          "syslog_timestamp" => "Jan 1 00:00:00",
-          "syslog_hostname" => "Paloalto",
-          "syslog_tag" => "-",
-          "cef_version" => "0",
-          "cef_device_vendor" => "Palo Alto Networks",
-          "cef_device_product" => "PAN-OS",
-          "cef_device_version" => "10.1.8",
-          "cef_device_event_class_id" => "TRAFFIC",
-          "cef_name" => "end",
-          "cef_severity" => "0",}]}
-    end
-    context "syslog message is FW traffic Log for Palo Alto FW" do
+    context "syslog message is BASIC Log for Palo Alto Networks" do
       let (:config) {%[
         log_utc_offset  +09:00
       ]}
@@ -432,12 +407,11 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "PanOSPacketsReceived" => "0",
           "PanOSPacketsSent" => "1",}]}
     end
-
     context "syslog message is BASIC Log for Fortigate" do
       let (:config) {%[
         log_utc_offset  +09:00
       ]}
-      let (:text) { "Jan 1 00:00:00 hostname CEF: 0|Fortinet|Fortigate|v7.0.12|00020|traffic:forward accept|3|FTNTFGTsentpkt=0 FTNTFGTrcvdpkt=0" }
+      let (:text) { "Jan 1 00:00:00 hostname CEF: 0|Fortinet|Fortigate|v7.0.12|00020|traffic:forward accept|3|FTNTFGTsentpkt=0 FTNTFGTrcvdpkt=0 FTNTFGTlogdesc=DHCP Ack log" }
       # let (:text) { "Jan 1 00:00:00 hostname CEF: 0|VENDOR|PRODUCT|VERSION|ID|EVENT_NAME|SEVERITY|" }
       subject do
         allow(Fluent::Engine).to receive(:now).and_return(Fluent::EventTime.now)
@@ -462,7 +436,8 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_name" => "traffic:forward accept",
           "cef_severity" => "3",
           "FTNTFGTsentpkt" => "0",
-          "FTNTFGTrcvdpkt" => "0",}]}
+          "FTNTFGTrcvdpkt" => "0",
+          "FTNTFGTlogdesc" => "DHCP Ack log",}]}
     end
   end
 end
