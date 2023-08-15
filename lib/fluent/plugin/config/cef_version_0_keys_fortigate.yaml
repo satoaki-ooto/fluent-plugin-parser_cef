@@ -2,12 +2,22 @@
 # Chapter2: ArcSight Extension Dictionary
 
 # CEF Key Names For Fortigate
-cef_key_names_for_fortigate:
+cef_key_names_for_fortigate_common:
   - FTNTFGTeventtime
   - FTNTFGTtz
   - FTNTFGTlogid
   - FTNTFGTsubtype
   - FTNTFGTlevel
+
+cef_key_names_for_fortigate_event:
+  - FTNTFGTlogid
+  - FTNTFGTlogdesc
+  - FTNTFGTdhcp_msg
+  - FTNTFGTmac
+  - FTNTFGTip
+  - FTNTFGTlease
+
+cef_key_names_for_fortigate_traffic:
   - FTNTFGTvd
   - FTNTFGTsrcintfrole
   - FTNTFGTdstintfrole
