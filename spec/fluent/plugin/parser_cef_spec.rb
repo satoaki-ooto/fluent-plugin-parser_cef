@@ -432,5 +432,33 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "PanOSPacketsReceived" => "0",
           "PanOSPacketsSent" => "1",}]}
     end
+    context "syslog message is BASIC Log for Fortigate" do
+      let (:config) {%[
+        log_utc_offset  +09:00
+      ]}
+      let (:text) { "Jan 1 00:00:00 hostname CEF: 0|Fortinet|Fortigate|v7.0.12|00020|traffic:forward accept|3|" }
+      subject do
+        allow(Fluent::Engine).to receive(:now).and_return(Fluent::EventTime.now)
+        @timestamp = Time.parse("Jan 1 00:00:00 +09:00").to_i
+        @test_driver = create_driver(config)
+        parsed = nil
+        @test_driver.instance.parse(text) do |time, record|
+          parsed = [time, record]
+        end
+        parsed
+      end
+      it { is_expected.to eq [
+        @timestamp, {
+          "syslog_timestamp" => "Jan 1 00:00:00",
+          "syslog_hostname" => "hostname",
+          "syslog_tag" => "",
+          "cef_version" => "0",
+          "cef_device_vendor" => "Fortinet",
+          "cef_device_product" => "Fortigate",
+          "cef_device_version" => "v7.0.12",
+          "cef_device_event_class_id" => "00020",
+          "cef_name" => "traffic:forward accept",
+          "cef_severity" => "0",}]}
+    end
   end
 end

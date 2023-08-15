@@ -1,0 +1,53 @@
+# Implementing ArcSight Common Event Format
+# Chapter2: ArcSight Extension Dictionary
+
+# CEF Key Names For Palo Alto
+cef_key_names_for_paloalto:
+  - slocation
+  - dlocation
+  - PanOSPacketsReceived
+  - PanOSPacketsSent
+  - PanOSThreatCategory
+  - PanOSThreatID
+  - PanOSThreatName
+  - PanOSThreatDomain
+  - PanOSSeverity
+  - PanOSReferer
+  - PanOSURLCatList
+  - PanOSLogTimeStamp
+  - PanOSVirtualSystem
+  - PanOSEventID
+  - PanOSStage
+  - PanOSAuthMethod
+  - PanOSTunnelType
+  - PanOSSourceUserName
+  - PanOSSourceRegion
+  - PanOSEndpointDeviceName
+  - PanOSPublicIPv4
+  - PanOSPublicIPv6
+  - PanOSPrivateIPv4
+  - PanOSPrivateIPv6
+  - PanOSHostID
+  - PanOSDeviceSN
+  - PanOSGlobalProtectClientVersion
+  - PanOSEndpointOSType
+  - PanOSEndpointOSVersion
+  - PanOSCountOfRepeats
+  - PanOSQuarantineReason
+  - PanOSConnectionError
+  - PanOSDescription
+  - PanOSEventStatus
+  - PanOSGPGatewayLocation
+  - PanOSLoginDuration
+  - PanOSConnectionMethod
+  - PanOSConnectionErrorID
+  - PanOSPortal
+  - PanOSSequenceNo
+  - PanOSActionFlags
+  - PanOSTimeGeneratedHighResolution
+  - PanOSGatewaySelectionType
+  - PanOSSSLResponseTime
+  - PanOSGatewayPriority
+  - PanOSAttemptedGateways
+  - PanOSGateway
+  - PanOSEndpointDeviceSN

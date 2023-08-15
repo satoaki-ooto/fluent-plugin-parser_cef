@@ -1,0 +1,27 @@
+# Implementing ArcSight Common Event Format
+# Chapter2: ArcSight Extension Dictionary
+
+# CEF Key Names For Fortigate
+cef_key_names_for_fortigate:
+  - FTNTFGTeventtime
+  - FTNTFGTtz
+  - FTNTFGTlogid
+  - FTNTFGTsubtype
+  - FTNTFGTlevel
+  - FTNTFGTvd
+  - FTNTFGTsrcintfrole
+  - FTNTFGTdstintfrole
+  - FTNTFGTsrccountry
+  - FTNTFGTdstcountry
+  - FTNTFGTpolicyid
+  - FTNTFGTpolicytype
+  - FTNTFGTpoluuid
+  - FTNTFGTpolicyname
+  - FTNTFGTtrandisp
+  - FTNTFGTduration
+  - FTNTFGTsentpkt
+  - FTNTFGTrcvdpkt
+  - FTNTFGTvpntype
+  - FTNTFGTappcat
+  - FTNTFGTsentdelta
+  - FTNTFGTrcvddelt
