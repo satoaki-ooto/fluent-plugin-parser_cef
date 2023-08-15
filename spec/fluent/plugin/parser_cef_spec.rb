@@ -39,6 +39,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
       end
       it { is_expected.to eq [nil, nil] }
     end
+
     context "text is empty string" do
       let (:text) { "" }
       subject do
@@ -50,6 +51,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
       end
       it { is_expected.to eq [nil, nil] }
     end
+
     context "text is not syslog format nor CEF" do
       let (:text) { "December 12 10:00:00 hostname tag message" }
       subject do
@@ -62,6 +64,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
       end
       it { is_expected.to contain_exactly(be_an(Fluent::EventTime), { "raw" => "December 12 10:00:00 hostname tag message" }) }
     end
+
     context "text is not in syslog format but is CEF" do
       let (:text) { "December 12 10:00:00 hostname tag CEF:0|Vendor|Product|Version|ID|Name|Severity|cs1=test" }
       subject do
@@ -74,6 +77,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
       end
       it { is_expected.to contain_exactly(be_an(Fluent::EventTime), { "raw" => "December 12 10:00:00 hostname tag CEF:0|Vendor|Product|Version|ID|Name|Severity|cs1=test" }) }
     end
+
     context "text is syslog format but not CEF" do
       let (:text) { "Dec 12 10:11:12 hostname tag message" }
       subject do
@@ -86,6 +90,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
       end
       it { is_expected.to contain_exactly(be_an(Fluent::EventTime), { "raw" => "Dec 12 10:11:12 hostname tag message" }) }
     end
+
     context "text is syslog format and CEF (CEF Extension field is empty)" do
       let (:text) { "Dec  2 03:17:06 hostname tag CEF:0|Vendor|Product|Version|ID|Name|Severity|" }
       subject do
@@ -110,6 +115,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_name" => "Name",
           "cef_severity" => "Severity" }]}
     end
+
     context "text is syslog format and CEF (there is only one valid key in the CEF Extension field), Strict mode on" do
       let (:text) { "Dec  2 03:17:06 hostname tag CEF:0|Vendor|Product|Version|ID|Name|Severity|cs1=test" }
       subject do
@@ -135,6 +141,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_severity" => "Severity",
           "cs1" => "test" }]}
     end
+
     context "text is syslog format and CEF (there is only one valid key in the CEF Extension field), Strict mode off" do
       let (:config) {%[
         parse_strict_mode  false
@@ -164,6 +171,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_severity" => "Severity",
           "foo" => "bar" }]}
     end
+
     context "text is syslog format and CEF (there is only one valid key in the CEF Extension field), Strict mode on, timestamp is rfc3339" do
       let (:config) {%[
         syslog_timestamp_format  \\d{4}-{,1}\\d{2}-{,1}\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+){,1}(?:\\Z|\\+\\d{2}:\\d{2})
@@ -193,6 +201,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_severity" => "Severity",
           "foo" => "bar" }]}
     end
+
     context "timestamp is rfc3339, UTC+3" do
       let (:config) {%[
         syslog_timestamp_format  \\d{4}-{,1}\\d{2}-{,1}\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+){,1}(?:\\Z|\\+\\d{2}:\\d{2})
@@ -222,6 +231,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_severity" => "Severity",
           "foo" => "bar" }]}
     end
+
     context "timestamp is rfc3339, UTC+0" do
       let (:config) {%[
         syslog_timestamp_format  \\d{4}-{,1}\\d{2}-{,1}\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+){,1}(?:Z|\\+\\d{2}:\\d{2})
@@ -280,6 +290,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_severity" => "Severity",
           "cs1" => "test" }]}
     end
+
     context "utc offset set to -11:00, but log timestamp has timezone information, so utc offset is ignored" do
       let (:config) {%[
         syslog_timestamp_format  \\d{4}-{,1}\\d{2}-{,1}\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+){,1}(?:\\Z|\\+\\d{2}:\\d{2})
@@ -310,6 +321,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_severity" => "Severity",
           "cs1" => "test" }]}
     end
+
     context "syslog message is UTF-8, with BOM" do
       let (:config) {%[
         log_utc_offset  -07:00
@@ -343,6 +355,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "cef_severity" => "Severity",
           "cs1" => "test" }]}
     end
+
     context "syslog message is UTF-8, but including invalid UTF-8 string" do
       let (:config) {%[
         log_utc_offset  +09:00
@@ -376,6 +389,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "dpt" => "80",
           "msg" => "\xe3\x2e\x2e\x2e".scrub('?') }]}
     end
+
     context "syslog message is BASIC Log for Palo Alto Networks" do
       let (:config) {%[
         log_utc_offset  +09:00
@@ -407,6 +421,7 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "PanOSPacketsReceived" => "0",
           "PanOSPacketsSent" => "1",}]}
     end
+
     context "syslog message is BASIC Log for Fortigate" do
       let (:config) {%[
         log_utc_offset  +09:00
@@ -439,5 +454,6 @@ RSpec.describe Fluent::Plugin::CommonEventFormatParser do
           "FTNTFGTrcvdpkt" => "0",
           "FTNTFGTlogdesc" => "DHCP Ack log",}]}
     end
+
   end
 end
