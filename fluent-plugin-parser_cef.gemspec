@@ -5,8 +5,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 Gem::Specification.new do |spec|
   spec.name          = "fluent-plugin-parser_cef"
   spec.version       = File.read("VERSION").strip
-  spec.authors       = ["Tomoyuki Sugimura"]
-  spec.email         = ["tomoyuki.sugimura@gmail.com"]
+  spec.authors       = ["Satoaki Ooto"]
+  spec.email         = ["satoaki.ooto@gmail.com"]
   spec.description   = %q{common event format(CEF) parser plugin for fluentd}
   spec.summary       = %q{common event format(CEF) parser plugin, currently only 'syslog' format is permitted}
   spec.homepage      = "https://github.com/lunardial/fluent-plugin-parser_cef"
