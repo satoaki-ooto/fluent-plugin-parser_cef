@@ -1,10 +1,12 @@
 #!/bin/bash
 
-if [ ! -f ./VERSION ]; then
-    echo ${CI_COMMIT_TAG} >> ~/VERSION
+VERSION_FILE="${CI_PROJECT_DIR}/VERSION"
+
+if [ ! -f $VERSION_FILE ]; then
+    echo ${CI_COMMIT_TAG} > $VERSION_FILE
 fi
 
-if [ -f VERSION ]; then
-    cp /dev/null VERSION
-    echo ${CI_COMMIT_TAG} >> ~/VERSION
+if [ -f $VERSION_FILE ]; then
+    cp /dev/null $VERSION_FILE
+    echo ${CI_COMMIT_TAG} > $VERSION_FILE
 fi
