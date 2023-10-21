@@ -26,7 +26,7 @@ deploy:
     - |
       echo "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems: '${CI_JOB_TOKEN}'" >> ~/.gem/credentials
     - chmod 0600 ~/.gem/credentials # rubygems requires 0600 permissions on the credentials file
-    - bash -x ~/.gitlab/ci/init.sh
+    - bash -x .gitlab/ci/init.sh
   script:
     - gem build fluent-plugin-parser_cef
     - gem push fluent-plugin-parser_cef-${CI_COMMIT_TAG}.gem --host ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems
