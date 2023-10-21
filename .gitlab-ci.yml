@@ -28,7 +28,7 @@ deploy:
     - chmod 0600 ~/.gem/credentials # rubygems requires 0600 permissions on the credentials file
   script:
     - gem build fluent-plugin-parser_cef
-    - gem push fluent-plugin-parser_cef-$(cat VERSION).gem --host ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems
+    - gem push fluent-plugin-parser_cef-${CI_COMMIT_TAG}.gem --host ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems
   only:
     - tags
   except:
