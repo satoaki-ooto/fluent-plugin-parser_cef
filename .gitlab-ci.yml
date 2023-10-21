@@ -1,5 +1,9 @@
 image: ruby:2.7-bullseye
 
+stages:
+  - test
+  - deploy
+
 test:
   stage: test
   before_script:
@@ -15,6 +19,7 @@ test:
       when: always
 
 deploy:
+  stage: deploy
   before_script:
     - echo "---" > ~/.gem/credentials
     - |
