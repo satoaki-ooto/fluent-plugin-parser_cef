@@ -1,16 +1,10 @@
 image: ruby:2.7-bullseye
 
-before_script:
-  - gem install bundler
-  - bundle install
-  # - mkdir ~/.gem
-  - echo "---" > ~/.gem/credentials
-  - |
-    echo "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems: '${CI_JOB_TOKEN}'" >> ~/.gem/credentials
-  - chmod 0600 ~/.gem/credentials # rubygems requires 0600 permissions on the credentials file
-
 test:
   stage: test
+  before_script:
+    - gem install bundler
+    - bundle install
   script:
     - bundle exec rspec
   rules:
@@ -21,6 +15,11 @@ test:
       when: always
 
 deploy:
+  before_script:
+    - echo "---" > ~/.gem/credentials
+    - |
+      echo "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems: '${CI_JOB_TOKEN}'" >> ~/.gem/credentials
+    - chmod 0600 ~/.gem/credentials # rubygems requires 0600 permissions on the credentials file
   script:
     - gem build my_gem
     - gem push my_gem-0.0.1.gem --host ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems
